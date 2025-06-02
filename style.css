@@ -1,0 +1,532 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+:root {
+  /* Dark theme colors */
+  --text-color: #edf3ff;
+  --subheading-color: #97a7ca;
+  --placeholder-color: #c3cdde;
+  --primary-color: #101623;
+  --secondary-color: #283045;
+  --secondary-hover-color: #333e58;
+  --scrollbar-color: #626a7f;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+body.light-theme {
+  /* Light theme colors */
+  --text-color: #090c13;
+  --subheading-color: #7b8cae;
+  --placeholder-color: #606982;
+  --primary-color: #f3f7ff;
+  --secondary-color: #dce6f9;
+  --secondary-hover-color: #d2ddf2;
+  --scrollbar-color: #a2aac2;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.container {
+  padding: 2.2rem 0rem 4rem;
+  position: relative;
+  overflow-y: auto;
+  min-height: calc(100vh - 127px);
+  scrollbar-color: var(--scrollbar-color) transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: 0; /* remove the padding here */
+}
+
+.container:where(.app-header, .suggestions, .prompt-container .prompt-wrapper) {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 990px;
+  padding: 0 2rem;
+}
+
+.app-header {
+  margin-top: 4vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  font-size: 3rem;
+  background-image: linear-gradient(to right, #1d7efd, #8f6fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.sub-heading {
+  font-size: 2.6rem;
+  color: var(--subheading-color);
+  margin-top: -5px;
+}
+
+.suggestions {
+  list-style-type: none;
+  display: flex;
+  gap: 15px;
+  margin-top: 9.5vh;
+}
+
+.suggestions .suggestions-item {
+  width: 267px;
+  padding: 1.1rem 1rem;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  cursor: pointer;
+  transition: 0.3 ease;
+}
+
+.suggestions-item:hover {
+  background-color: var(--secondary-hover-color);
+}
+
+.text {
+  font-size: 1.1rem;
+}
+
+.suggestions .suggestions-item span {
+  /* border: 2px solid green; */
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: #1d7efd;
+  border-radius: 50%;
+  margin-top: 1.5rem;
+}
+
+.suggestions .suggestions-item:nth-child(2) .icon {
+  color: #28a745;
+}
+.suggestions .suggestions-item:nth-child(3) .icon {
+  color: #ffc107;
+}
+.suggestions .suggestions-item:nth-child(4) .icon {
+  color: #6f42c1;
+}
+
+.prompt-container {
+  /* border: 2px solid yellow; */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 10rem;
+  z-index: 9999;
+}
+
+.prompt-container :where(.prompt-wrapper, .prompt-form, .prompt-actions) {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  height: 56px;
+}
+
+.prompt-wrapper {
+  /* border: 2px solid green; */
+  margin-bottom: 1rem;
+}
+
+.prompt-form {
+  /* border: 2px solid red; */
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondary-color);
+  border-radius: 200px;
+}
+
+.prompt-input {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding-left: 2rem;
+  color: var(--text-color);
+}
+
+.prompt-input::placeholder {
+  color: var(--placeholder-color);
+}
+
+.prompt-wrapper #theme-toggle-btn,
+#delete-chat-btn {
+  width: 56px;
+  height: 100%;
+  border: none;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  cursor: pointer;
+  /* border: 2px solid; */
+}
+.prompt-actions {
+  margin-right: 0.5rem;
+}
+
+.prompt-form :where(.file-upload-wrapper, button, img) {
+  width: 45px;
+  height: 45px;
+  position: relative;
+}
+
+.prompt-wrapper .prompt-form .file-upload-wrapper :where(button, img) {
+  position: absolute;
+  border-radius: 50%;
+  object-fit: cover;
+  display: none;
+}
+
+.prompt-form .file-upload-wrapper #add-file-btn,
+.prompt-form .file-upload-wrapper.active.img-attached img,
+.prompt-form .file-upload-wrapper.active.file-attached .file-icon,
+.prompt-form .file-upload-wrapper.active:hover #cancle-file-btn {
+  display: block;
+}
+.prompt-form .file-upload-wrapper.active #add-file-btn {
+  display: none;
+}
+
+.prompt-form :is(#cancle-file-btn:hover, #stop-response-btn:hover) {
+  color: #d65a29;
+}
+
+.prompt-form #stop-response-btn,
+body.bot-responding .prompt-form .file-upload-wrapper {
+  display: none;
+}
+body.bot-responding .prompt-form #stop-response-btn {
+  display: block;
+}
+
+.prompt-form .file-icon {
+  color: #1d7efd;
+}
+
+#send-prompt-btn,
+#add-file-btn,
+#cancle-file-btn,
+#stop-response-btn,
+.file-icon {
+  border: none;
+  background-color: var(--secondary-color);
+  flex-shrink: 0;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  color: var(--text-color);
+  cursor: pointer;
+  /* border: 2px solid red; */
+}
+
+#add-file-btn:hover,
+#theme-toggle-btn:hover,
+#delete-chat-btn:hover,
+#cancle-file-btn:hover,
+#stop-response-btn:hover {
+  background: var(--secondary-hover-color);
+  color: var(--primary-color);
+}
+
+#send-prompt-btn {
+  display: none;
+  background-color: #1d7efd;
+}
+#send-prompt-btn:hover {
+  background-color: #1d7efdb3;
+}
+
+.prompt-input:valid ~ .prompt-actions #send-prompt-btn {
+  display: block;
+}
+
+.message {
+  margin-bottom: 2rem;
+  /* border: 2px solid red; */
+}
+
+body.chats-active .container :where(.app-header, .suggestions) {
+  display: none;
+}
+
+.message-text {
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.user-message .message-text {
+  text-align: left;
+}
+
+.chats-container .user-message .img-attachment {
+  margin-top: -7px;
+  width: 50%;
+  border-radius: 13px 3px 13px 13px;
+}
+
+.chats-container .user-message .file-attachment {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 10px;
+  margin-top: -7px;
+  border-radius: 13px 3px 13px 13px;
+  background: var(--secondary-color);
+}
+
+.chats-container .user-message .file-attachment span {
+  color: #1d7efd;
+}
+
+.chats-container {
+  /* border: 2px solid; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem 10rem;
+  margin-bottom: 120px; /* space for the prompt */
+  scrollbar-color: var(--scrollbar-color) transparent;
+  max-height: 100vh;
+}
+
+.user-message .message-text {
+  background-color: var(--secondary-color);
+  padding: 0.6rem 0.6rem;
+  border-radius: 13px 13px 5px 13px;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  /* border: 2px solid yellow; */
+}
+
+.user-message {
+  display: flex;
+  align-self: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 65%;
+  width: fit-content;
+  word-wrap: break-word;
+}
+
+.bot-message {
+  display: flex;
+  gap: 1rem;
+  align-self: flex-start;
+  max-width: 100%;
+  /* border: 1px solid; */
+}
+
+.bot-message .message-text {
+  padding: 0.9rem 0.7rem;
+  border-radius: 13px 13px 13px 5px;
+  color: var(--text-color);
+  line-height: 1.7;
+  width: 100%;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  padding: 5px;
+  /* border: 2px solid; */
+}
+
+.prompt-container .message {
+  text-align: center;
+}
+
+.chats-container .bot-message.loading .avatar {
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 940px) and (min-width: 840px) {
+  .suggestions {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 80px;
+  }
+  .suggestions .suggestions-item:nth-child(4) {
+    display: grid;
+    grid-column: 1 /-1;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 839px) and (min-width: 305px) {
+  body {
+    overflow-y: auto;
+    min-height: 100vh;
+  }
+
+  .chats-container {
+    padding-bottom: 100px;
+    overflow-y: auto;
+  }
+
+  .container {
+    padding: 0;
+    min-height: 100vh;
+    height: 100vh;
+  }
+
+  /* Header Adjustments */
+  .app-header {
+    margin-top: 1vh;
+    padding: 0 1rem;
+  }
+
+  .heading {
+    font-size: 2rem;
+  }
+
+  .sub-heading {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  /* Suggestions Section */
+  .suggestions {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+    gap: 10px;
+    padding: 0 1rem;
+    border: none;
+  }
+
+  .suggestions .suggestions-item {
+    width: 100%;
+    max-width: 350px;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .suggestions .suggestions-item span {
+    width: 40px;
+    height: 40px;
+    margin-top: 1rem;
+  }
+
+  /* Prompt Container (Input Area) */
+  .prompt-container {
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    width: 100%;
+    padding: 0 16px;
+    z-index: 9999;
+  }
+
+  .prompt-container :where(.prompt-wrapper, .prompt-form, .prompt-actions) {
+    height: 50px;
+    gap: 10px;
+  }
+
+  .prompt-input {
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .prompt-form :where(.file-upload-wrapper, button, img) {
+    width: 40px;
+    height: 40px;
+  }
+
+  #send-prompt-btn,
+  #add-file-btn,
+  #cancle-file-btn,
+  #stop-response-btn,
+  .file-icon,
+  #delete-chat-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  #theme-toggle-btn {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  /* Chat Messages Area */
+  .chats-container {
+    padding: 1rem;
+    margin-bottom: 70px;
+  }
+
+  .message {
+    margin-bottom: 0.6rem;
+    font-size: 14px;
+  }
+
+  .user-message {
+    max-width: 85%;
+  }
+
+  .bot-message {
+    gap: 0.8rem;
+    max-width: 100%;
+  }
+
+  .bot-message .message-text {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .avatar {
+    width: 35px;
+    height: 35px;
+    padding: 4px;
+  }
+
+  .chats-container .user-message .img-attachment,
+  .chats-container .user-message .file-attachment {
+    max-width: 80%;
+  }
+
+  .prompt-container {
+    margin-top: 5rem;
+  }
+}
